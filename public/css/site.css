@@ -1,0 +1,42 @@
+#spec_title
+{
+  text-decoration: underline;
+}
+.spec_box
+{
+  color: white;
+  border: 1px solid black;
+  height: 50px;
+  width: 150px;
+  padding: 10px;
+}
+#spec_red
+{
+  margin: 10px;
+  background: #D84231;
+}
+#spec_ora
+{
+  margin: 10px 30px;
+  background: #EAAE33;
+}
+#spec_yel
+{
+  margin: 10px 60px;
+  background: #FCF733;
+}
+#spec_grn
+{
+  margin: 10px 90px;
+  background: #578C05;
+}
+#spec_blu
+{
+  margin: 10px 120px;
+  background: #234AFB;
+}
+#spec_vio
+{
+  margin: 10px 150px;
+  background: #DF8BF0;
+}
