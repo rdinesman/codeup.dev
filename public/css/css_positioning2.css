@@ -1,7 +1,7 @@
 #container
 {
-	width: 366px;
-	height: 244px;
+	width: 400px;
+	height: 400px;
 }
 
 
@@ -16,36 +16,10 @@
 	height: 110px;
 	width: 110px;
 	position: relative;
+	margin: 10px;
+	float:left;
 }
 
-#big_ora
-{
-	left: 120;
-	bottom: 112;
-}
-
-#big_yel
-{
-	left: 240;
-	bottom: 224;
-}
-
-#big_grn
-{
-	bottom: 214;
-}
-
-#big_blu
-{
-	left: 120;
-	bottom: 324;
-}
-
-#big_vio
-{
-	left: 240;
-	bottom: 436;
-}
 
 
 

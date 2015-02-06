@@ -1,0 +1,35 @@
+body
+{
+	/*font-family: 'Chango', cursive;*/
+	font-family: 'Krona One', sans-serif;
+	background-image: url("../img/escheresque_ste.png");
+	color: #EEEEEE;
+}
+
+.jumbotron
+{
+	color: #333333;
+}
+
+
+.li
+{
+	font-size: 16;
+}
+
+.ul
+{
+	font-size: 22;
+	text-decoration: underline;
+}
+
+.header_box
+{
+	background: rgb(160,160,160);
+	border: solid black 1px;
+}
+
+/*h2
+{
+	color: #EEEEEE;
+}*/
