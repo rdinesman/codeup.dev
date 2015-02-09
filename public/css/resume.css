@@ -1,20 +1,89 @@
-body
+#header
 {
 	/*font-family: 'Chango', cursive;*/
 	font-family: 'Krona One', sans-serif;
 	background-image: url("../img/escheresque_ste.png");
 	color: #EEEEEE;
+	position: fixed;
+	width: 100%;
+	height: 15%;
+	opacity: .8;
+}
+
+.buffer-20
+{
+	margin-top: 20px;
+}
+
+.borderline
+{
+	/*border-top: solid 1px rgb(6, 68, 0);*/
+	border-left: solid 5px rgb(6, 68, 0);
+	border-bottom: solid 5px rgb(6,68,0);
+	/*border-right: solid 1px rgb(6, 68, 0);*/
+}
+
+.center
+{
+	margin-left: 40%;
+}
+
+.underline
+{
+	text-decoration: underline;
+}
+
+
+.port
+{
+	background-image: url("../img/purty_wood.png");
+	color: rgb(160, 53, 53);
+}
+
+.resume
+{
+	background-image: url("../img/seamless_paper_texture.png");
+	color: rgb(6, 68, 0);
+}
+
+.big_space
+{
+	margin: 30px;
+}
+
+#sidebar
+{
+	font-family: 'Krona One', sans-serif;
+	background-image: url("../img/escheresque_ste.png");
+	color: #EEEEEE;
+	height: 100%;
+	width: 15%;
+	position: fixed;
+	/*margin: 10px;*/
+}
+
+a:link
+{
+	color: #EEEEEE;
+}
+
+.mid
+{
+	margin-left: 15%;
+	/*position: relative;*/
 }
 
 .jumbotron
 {
-	color: #333333;
+	color: rgb(6, 68, 0);
+	background-color: rgb(240, 238, 232);
+	border: solid black 1px;
 }
-
 
 .li
 {
 	font-size: 16;
+	padding-bottom: 10px;
 }
 
 .ul
@@ -29,7 +98,26 @@ body
 	border: solid black 1px;
 }
 
-/*h2
+#prof_pic
 {
-	color: #EEEEEE;
-}*/
+	margin-left: 5%;
+}
+
+#jumbo_bat
+{
+	background-image: url("../img/bat_beard1.jpg");
+	height: 295px;
+	width: 1204px;
+}
+
+.port_works
+{
+	margin: 20px;
+	border: solid black 5px;
+}
+
+.port_about
+{
+	background: url("../img/pool_table.png");
+	color: rgb(224, 224, 80);
+}
