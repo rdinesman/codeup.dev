@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>Iterating Arrays</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var names = ["Big Booty", "Little Booty", "Long Booty", "Short Booty"];
+		console.log("There are " + names.length + "names in the list.");
+		console.log("They are:");
+		for (var i = 0; i < names.length; i++)
+		{
+			console.log(names[i]);
+		}
+		console.log("\n");
+		console.log("Once again, these names are:");
+		names.forEach(function (element, index, array)
+		{
+			console.log(element);
+		});
+	</script>
+</body>
+</html>
