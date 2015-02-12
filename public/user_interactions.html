@@ -1,0 +1,29 @@
+<html>
+<head>
+	<title>User Interactions</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var name;
+		while (name == null || name == "")
+		{
+			name = prompt("What is your name?");
+		}
+
+		alert("Welcome, " + name + "!");
+		var resp = prompt("So " + name + ", do you like pizza?");
+		switch (resp)
+		{
+			case "yes":
+			case "Yes":
+			case "YES":
+			case "y":
+			case "Y":
+				console.log("Good to know you have good taste.");
+				break;
+			default:
+				console.log("... I don't think I want you looking at my JS...");
+		}
+	</script>
+</body>
+</html>
