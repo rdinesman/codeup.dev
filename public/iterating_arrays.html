@@ -5,6 +5,7 @@
 <body>
 	<script type="text/javascript">
 		var names = ["Big Booty", "Little Booty", "Long Booty", "Short Booty"];
+		var otherNames = ["Bob", "Dole", "Bob Dole"];
 		console.log("There are " + names.length + "names in the list.");
 		console.log("They are:");
 		for (var i = 0; i < names.length; i++)
@@ -13,10 +14,11 @@
 		}
 		console.log("\n");
 		console.log("Once again, these names are:");
-		names.forEach(function (element, index, array)
+		function superAwesome (element, index, array)
 		{
 			console.log(element);
-		});
+		}
+		names.forEach(superAwesome);
 	</script>
 </body>
 </html>
