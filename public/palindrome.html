@@ -1,0 +1,80 @@
+<html>
+<head>
+	<title>Is, or is it?</title>
+</head>
+<body>
+	<script type="text/javascript">
+		(function ()
+		{
+			var choice;
+			while (choice != 'q')
+			{
+				choice = prompt("Would you to to access the palindrome checker, the English - Piglatin translator, or quit? \nEnter 'p' for the palindrome checker\nEnter 'et' for the Piglatin - English translator\nEnter 'q' to quit");
+				switch(choice)
+				{
+					///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+					case('p'):
+						var pal, palRev, palOrig, palCheck;
+						var done = "y";
+						while (done == 'y')
+						{
+							palCheck = true;
+							pal = prompt("Please enter a palindrome: ");
+							palOrig = pal;
+							pal = pal.toUpperCase();
+							palRev = rev(pal);
+
+							if (pal == palRev)
+							{
+								alert("Yay, " + palOrig + " is a palindrome!");
+							}
+							else
+							{
+								alert("THAT'S NOT A PALINDROME, YOU LIAR!!");
+							}
+
+
+							function rev(toRev)
+							{
+								resp = "";
+								for (var i = 0; i < toRev.length; i++)
+								{
+									resp += toRev[toRev.length - i - 1];
+								}
+								return resp;
+							}
+							done = prompt("Would you like to play again? Enter 'y' to enter another palindrome.");
+						}
+						break;
+					///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+					case('et'):
+						var word, wordOrig;
+						var cont = 'y';
+						var vows = ["A", "E", "I", "O", "U", "Y"]
+						while (cont == "y")
+						{
+							word = prompt("Please enter the word you'd like to translate from English to Piglatin:");
+							while (word == undefined || !isNaN(parseInt(word)))
+							{
+								word = prompt("Please enter the word you'd like to translate from English to Piglatin:");
+							}
+							wordOrig = word;
+							word = word.toUpperCase();
+							if (vows.indexOf(word[0]) == -1)
+							{
+								word = (word.substring(1, word.length) + word[0] + "ay").toLowerCase();
+							}
+							else
+							{
+								word = (word + "way").toLowerCase();
+							}
+							alert(wordOrig + " is " + word + " in Piglatin.");
+							cont = prompt("Would you like to translate another word? Enter 'y' to translate another word.");
+						}
+						break;
+				}
+			}
+		})()
+	</script>
+</body>
+</html>
