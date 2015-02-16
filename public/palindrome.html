@@ -9,7 +9,7 @@
 			var choice;
 			while (choice != 'q')
 			{
-				choice = prompt("Would you to to access the palindrome checker, the English - Piglatin translator, or quit? \nEnter 'p' for the palindrome checker\nEnter 'et' for the Piglatin - English translator\nEnter 'q' to quit");
+				choice = prompt("Would you like to access the palindrome checker, the English - Piglatin translator, the Piglatin - English translator, or quit? \nEnter 'p' for the palindrome checker\nEnter 'e2p' for the Piglatin - English translator\nEnter 'p2e' for the Piglatin - English translator\nEnter 'q' to quit");
 				switch(choice)
 				{
 					///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -47,7 +47,7 @@
 						}
 						break;
 					///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-					case('et'):
+					case('e2p'):
 						var word, wordOrig;
 						var cont = 'y';
 						var vows = ["A", "E", "I", "O", "U", "Y"]
@@ -69,6 +69,32 @@
 								word = (word + "way").toLowerCase();
 							}
 							alert(wordOrig + " is " + word + " in Piglatin.");
+							cont = prompt("Would you like to translate another word? Enter 'y' to translate another word.");
+						}
+						break;
+					///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					case('p2e'):
+						var word, wordOrig;
+						var cont = 'y';
+						var vows = ["A", "E", "I", "O", "U", "Y"]
+						while (cont == "y")
+						{
+							word = prompt("Please enter the word you'd like to translate from Piglatin to English:");
+							while (word == undefined || !isNaN(parseInt(word)))
+							{
+								word = prompt("Please enter the word you'd like to translate from Piglatin to English:");
+							}
+							wordOrig = word;
+							word = word.toUpperCase();
+							if (true)//vows.indexOf(word[0]) == -1)
+							{
+								word = (word[word.length - 3] + word.substring(0, word.length - 3)).toLowerCase();
+							}
+							else
+							{
+								word = (word + "way").toLowerCase();
+							}
+							alert(wordOrig + " is " + word + " in English.");
 							cont = prompt("Would you like to translate another word? Enter 'y' to translate another word.");
 						}
 						break;

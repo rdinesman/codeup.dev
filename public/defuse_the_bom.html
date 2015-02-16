@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Defuse the BOM</title>
+</head>
+<body>
+    <h2 id="message">This BOM will self destruct in 5 seconds...</h2>
+
+    <button id="defuser">Defuse the BOM</button>
+
+    <script>
+
+        var delay = 5000; // delay time in milliseconds
+
+        var deviceId = setTimeout(function () {
+            alert('EXTERMINATE!');
+            document.body.innerHTML = '';
+        }, delay);
+
+        function defuseTheBOM() {
+            // todo:
+            // use clearTimeout to disable the timer
+            alert("The BOM has been defused!");
+            clearTimeout(deviceId);
+        }
+
+        // don't modify the line below
+        // this causes the defuseTheBOM() function to be called
+        // when the "DEFUSE" button is clicked.
+        // we will learn about events in the DOM lessons
+        var defuser = document.getElementById('defuser');
+        defuser.addEventListener('click', defuseTheBOM, false);
+
+    </script>
+</body>
+</html>
