@@ -1,0 +1,42 @@
+#calculator
+{
+	width: 225px;
+	height: 250px;
+	border: solid black 2px;
+	background-color: #605f5a;
+	
+}
+
+#workspace
+{
+	width: 219px;
+	height: 75px;
+	border: solid black 2px;
+	float: left;
+	margin: 1px;
+	margin-bottom: 8px;
+	background-color: #eaeae5;
+}
+
+#work
+{
+	float: right;
+	padding-top: 45px;
+}
+
+.button
+{
+	width: 50px;
+	height: 25px;
+	border: solid black 2px;
+	float: left;
+	background-color: #176b10;
+	color: #eaeae5;
+	margin: 3px;
+}
+
+.operator
+{
+	background-color: #eaeae5;
+	color: #605f5a;
+}
