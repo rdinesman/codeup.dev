@@ -26,19 +26,24 @@ var calculator = {};
 
 	calculator.operand1 = "";
 	calculator.operand2 = "";
-	calculator.operator = null;
+	calculator.operator = "";
 	calculator.operandCurrent = "";
 //                                                                  //
 // WHEN AN operator IS CLICKED, THIS WILL SWITCH THE ACTIVE OPERAND //
 	calculator.switchOperand = function() {
-			if (calculator.operator == null){
+			console.log("operator: " + calculator.operator);
+			if (calculator.operator == ""){
+				console.log("Adding " + calculator.operandCurrent + " to operand1");
 				calculator.operand1 = calculator.operandCurrent;
 				calculator.operandCurrent = "";
+				console.log("operand1: " + calculator.operand1);
 			}
 			else
 			{
+				console.log("Adding " + calculator.operandCurrent + " to operand2");
 				calculator.operand2 = calculator.operandCurrent;
 				calculator.operandCurrent = "";
+				console.log("operand2: " + calculator.operand2);
 			}
 		};
 //                                                                  //
@@ -46,6 +51,41 @@ var calculator = {};
 	calculator.updateWork = function() {
 		calculator.work.innerHTML = calculator.operandCurrent;
 	};
+//                                                                  //
+// USES THE SELECTED OPERATOR TO CALCULATE THE SOLUTION //////////////
+	calculator.equals = function(){
+		console.log("The current operator is: " + calculator.operator);
+		var int1 = parseInt(calculator.operand1);
+		var int2 = parseInt(calculator.operand2);
+		var result;
+		if(calculator.operator[0] == "+"){
+			result = int1 + int2;
+			console.log("+");
+			console.log(result);
+		}
+		else if(calculator.operator[0] == "-"){
+			result = int1 - int2;
+			console.log("-");
+			console.log(result);
+		}
+		else if(calculator.operator[0] == "*"){
+			result = int1 * int2;
+			console.log("*");
+			console.log(result);
+		}
+		else if (calculator.operator[0] == "/"){
+			result = int1 / int2;
+			console.log("/");
+			console.log(result);
+		}
+		else
+		{
+			result = 0;
+		}
+		console.log("int1: " + int1);
+		console.log("int2: " + int2);
+		calculator.work.innerHTML = result;
+	}
 //                                                                  //
 // LISTEN FUNCTIONS FOR EACH BUTTON //////////////////////////////////
 	// NUMBER LISTEN FUNCTIONS
@@ -89,39 +129,48 @@ var calculator = {};
 			calculator.operandCurrent += 0;
 			calculator.updateWork();
 		};
-
 	// OPERATOR LISTEN FUNCTIONS
 		calculator.listenPlus = function(event){
-			calculator.operator = "+";
-			calculator.switchOperand();	
+			calculator.switchOperand(); 
+			if (calculator.operand1 != ""){
+				calculator.operator = "+";
+			}
 		};
 		calculator.listenMinus = function(event){
-			calculator.operator = "-";
-			calculator.switchOperand();	
+			calculator.switchOperand(); 
+			if (calculator.operand1 != ""){
+				calculator.operator = "-";
+			}
 		};
 		calculator.listenMult = function(event){
-			calculator.operator = "*";
-			calculator.switchOperand(); 	
+			calculator.switchOperand(); 
+			if (calculator.operand1 != ""){
+				calculator.operator = "*";	
+			}
 		};
 		calculator.listenClear = function(event){
-			calculator.operator = null;
+			calculator.operator = "";
 			calculator.operand1 = "";
 			calculator.operand2 = "";
 			calculator.operandCurrent = "";	
 			calculator.updateWork();
 		};
 		calculator.listenEqual = function(event){
-			calculator.operator = "=";
 			calculator.switchOperand(); 
-			calculator.updateWork();
-			calculator.operator = null;
-			calculator.operand1 = "";
-			calculator.operand2 = "";
-			calculator.operandCurrent = "";		
+			if (calculator.operand1 != "" && calculator.operand2 != ""){
+				calculator.operator += "=";
+				calculator.equals();
+				calculator.operator = "";
+				calculator.operand1 = "";
+				calculator.operand2 = "";
+				calculator.operandCurrent = "";		
+			}
 		};
 		calculator.listenDiv = function(event){
-			calculator.operator = "/";
-			calculator.switchOperand(); 	
+			calculator.switchOperand();
+			if (calculator.operand1 != ""){ 
+				calculator.operator = "/";	
+			}
 		};
 
 	// EventListener ASSIGNMENTS
@@ -142,4 +191,5 @@ var calculator = {};
 		calculator.opMult.addEventListener("click", calculator.listenMult, false);
 		calculator.opClear.addEventListener("click", calculator.listenClear, false);
 		calculator.opDiv.addEventListener("click", calculator.listenDiv, false)
+		calculator.opEqual.addEventListener("click", calculator.listenEqual, false);
 //////////////////////////////////////////////////////////////////////
