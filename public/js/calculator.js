@@ -2,7 +2,9 @@ var calculator = {};
 //////////////////////////////////////////////////////////////////////
 // VARS FOR ALL BUTTONS //////////////////////////////////////////////
 	calculator.work = document.getElementById("work");
-
+	calculator.numSyst = document.getElementById("numSyst");
+	calculator.numSysts = ["Dec", "Hex", "Bin"];
+	calculator.numSystIt = 0;
 
 	calculator.num1 = document.getElementById("num1");
 	calculator.num2 = document.getElementById("num2");
@@ -15,20 +17,30 @@ var calculator = {};
 	calculator.num9 = document.getElementById("num9");
 	calculator.num0 = document.getElementById("num0");
 
-
+	calculator.per = document.getElementById("per");
 	calculator.opPlus = document.getElementById("op+");
 	calculator.opMinus = document.getElementById("op-");
 	calculator.opMult = document.getElementById("op*");
 	calculator.opClear = document.getElementById("opC");
 	calculator.opEqual = document.getElementById("op=");
 	calculator.opDiv = document.getElementById("op/");
+	calculator.opMod = document.getElementById("opMod");
+	calculator.swap = document.getElementById("swap");
 
 
 	calculator.operand1 = "";
 	calculator.operand2 = "";
 	calculator.operator = "";
 	calculator.operandCurrent = "";
-//                                                                  //
+// 
+// LOOPS BETWEEN THE NUMBER SYSTEMS                                 //
+	calculator.swapSyst = function(){
+		calculator.numSystIt++;
+		if (calculator.numSystIt == 3){
+			calculator.numSystIt = 0;
+		}
+		calculator.numSyst.innerHTML = calculator.numSysts[calculator.numSystIt];
+	}                                                                 //
 // WHEN AN operator IS CLICKED, THIS WILL SWITCH THE ACTIVE OPERAND //
 	calculator.switchOperand = function() {
 			console.log("operator: " + calculator.operator);
@@ -49,14 +61,19 @@ var calculator = {};
 //                                                                  //
 // UPDATES THE CALCULATOR work WITH THE CURRANT OPERAND //////////////
 	calculator.updateWork = function() {
+		if (calculator.operandCurrent.length > 26)
+		{
+			calculator.work.style["padding-top"] = "28px";
+			calculator.operandCurrent += "\n";
+		}
 		calculator.work.innerHTML = calculator.operandCurrent;
 	};
 //                                                                  //
 // USES THE SELECTED OPERATOR TO CALCULATE THE SOLUTION //////////////
 	calculator.equals = function(){
 		console.log("The current operator is: " + calculator.operator);
-		var int1 = parseInt(calculator.operand1);
-		var int2 = parseInt(calculator.operand2);
+		var int1 = parseFloat(calculator.operand1);
+		var int2 = parseFloat(calculator.operand2);
 		var result;
 		if(calculator.operator[0] == "+"){
 			result = int1 + int2;
@@ -78,6 +95,11 @@ var calculator = {};
 			console.log("/");
 			console.log(result);
 		}
+		else if (calculator.operator[0] == "%"){
+			result = int1 % int2;
+			console.log("%");
+			console.log(result);
+		}
 		else
 		{
 			result = 0;
@@ -88,6 +110,10 @@ var calculator = {};
 	}
 //                                                                  //
 // LISTEN FUNCTIONS FOR EACH BUTTON //////////////////////////////////
+	// numSyst LISTEN FUNCTION
+		calculator.numSystListen = function(event){
+			calculator.swapSyst();
+		}
 	// NUMBER LISTEN FUNCTIONS
 		calculator.listen1 = function(event){
 			calculator.operandCurrent += 1;	
@@ -126,10 +152,19 @@ var calculator = {};
 			calculator.updateWork();
 		};
 		calculator.listen0 = function(event){
-			calculator.operandCurrent += 0;
-			calculator.updateWork();
+			if (calculator.operandCurrent != ""){
+				calculator.operandCurrent += 0;
+				calculator.updateWork();
+			}
 		};
 	// OPERATOR LISTEN FUNCTIONS
+		calculator.listenPer = function(event){
+			if (calculator.operandCurrent.indexOf(".") == -1)
+			{
+				calculator.operandCurrent += ".";
+			}
+			calculator.updateWork();
+		}
 		calculator.listenPlus = function(event){
 			calculator.switchOperand(); 
 			if (calculator.operand1 != ""){
@@ -148,12 +183,19 @@ var calculator = {};
 				calculator.operator = "*";	
 			}
 		};
+		calculator.listentMod = function(event){
+			calculator.switchOperand();
+			if (calculator.operand1 != ""){
+				calculator.operator = "%";
+			}
+		}
 		calculator.listenClear = function(event){
 			calculator.operator = "";
 			calculator.operand1 = "";
 			calculator.operand2 = "";
 			calculator.operandCurrent = "";	
 			calculator.updateWork();
+			calculator.work.innerHTML = 0;
 		};
 		calculator.listenEqual = function(event){
 			calculator.switchOperand(); 
@@ -172,8 +214,22 @@ var calculator = {};
 				calculator.operator = "/";	
 			}
 		};
-
+		calculator.listenSwap = function(event){
+			if (calculator.operandCurrent != ""){
+				if (calculator.operandCurrent[0] == "-")
+				{
+					calculator.operandCurrent = calculator.operandCurrent.substring(1, calculator.operandCurrent.length);
+				}
+				else
+				{
+					calculator.operandCurrent = "-" + calculator.operandCurrent;
+				}
+				calculator.updateWork();
+			}	
+		}
 	// EventListener ASSIGNMENTS
+		calculator.numSyst.addEventListener("click", calculator.numSystListen, false);
+
 		calculator.num1.addEventListener("click", calculator.listen1, false);
 		calculator.num2.addEventListener("click", calculator.listen2, false);
 		calculator.num3.addEventListener("click", calculator.listen3, false);
@@ -185,11 +241,13 @@ var calculator = {};
 		calculator.num9.addEventListener("click", calculator.listen9, false);
 		calculator.num0.addEventListener("click", calculator.listen0, false);
 
-
+		calculator.per.addEventListener("click", calculator.listenPer, false);
 		calculator.opPlus.addEventListener("click", calculator.listenPlus, false);
 		calculator.opMinus.addEventListener("click", calculator.listenMinus, false);
 		calculator.opMult.addEventListener("click", calculator.listenMult, false);
 		calculator.opClear.addEventListener("click", calculator.listenClear, false);
-		calculator.opDiv.addEventListener("click", calculator.listenDiv, false)
+		calculator.opDiv.addEventListener("click", calculator.listenDiv, false);
+		calculator.opMod.addEventListener("click", calculator.listentMod, false);
 		calculator.opEqual.addEventListener("click", calculator.listenEqual, false);
+		calculator.swap.addEventListener("click", calculator.listenSwap, false);
 //////////////////////////////////////////////////////////////////////
