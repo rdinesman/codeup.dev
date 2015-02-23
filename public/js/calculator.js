@@ -2,8 +2,8 @@ var calculator = {};
 //////////////////////////////////////////////////////////////////////
 // VARS FOR ALL BUTTONS //////////////////////////////////////////////
 	calculator.work;
-	calculator.numSyst = document.getElementById("numSyst");
-	calculator.numSysts = ["Dex", "Hex", "Bin"];
+	calculator.numSyst;
+	calculator.numSysts = ["Dex", "Bin", "Hex"];
 	calculator.numSystIt = -1;
 
 	// calculator.num1 = document.getElementById("num1");
@@ -370,17 +370,111 @@ var calculator = {};
 							'='+
 						'</button>'+
 					'</div>';
+
 		var buttons = document.getElementsByTagName("button");
 		for (var i = 0; i < buttons.length; i++){
 			buttons[i].addEventListener("click", calculator.listener, false);
 		}
+		document.getElementById("numSyst").addEventListener("click", calculator.swapSyst, false);
+
 		calculator.work = document.getElementById("work");
 		document.getElementById("border").style["width"].value = "219px";
 		document.getElementById("border").style["height"].value = "75px";
 
 		document.getElementById("calculator").style["width"].value = "225px";
 		document.getElementById("calculator").style["height"].value = "250px";
+
+		document.getElementById("workspace").style["width"].value = "219px";
+		document.getElementById("workspace").style["height"].value = "75px";
+
+		var buttonClass = document.getElementsByClassName("button");
+
+		for (var i = 0; i < buttonClass.length; i++){
+			buttonClass[i].style["width"].value = "50px";
+			buttonClass[i].style["height"].value = "25px";
+		}
+
+		document.getElementById("num0").style["width"].value = "106px";
+		document.getElementById("num1").style["width"].value = "50px";
+
+		document.getElementById("num0").style["height"].value = "25px";
+		document.getElementById("num1").style["height"].value = "25px";
 	}
+
+	calculator.binSystem = function(){
+		var calc = document.getElementById("border");
+		calc.innerHTML = '<div id = "calculator">' +
+						'<div id = "workspace">' +
+							'<button id = "numSyst">' +
+								'Bin'+
+							'</button>' +
+							'<p id = "work">' +
+								'0'+
+							'</p>'+
+						'</div>'+
+						'<button id = "opC" class = "button operator" value = "C">'+
+							'C'+
+						'</button>'+
+						'<button id = "swap" class = "button operator" value = "swap">'+
+							'+/-'+
+						'</buton>'+
+						'<button id = "opMod" class = "button operator" value = "%">'+
+							'%'+
+						'</button>'+
+						'<button id = "op/" class = "button operator" value = "/">'+
+							'/'+
+						'</button>'+
+						'<button id = "num1" class = "button" value = "1">'+
+							'1'+
+						'</button>'+
+						'<button id = "num0" class = "button" value = "0">'+
+							'0'+
+						'</button>'+
+						'<button id = "op*" class = "button operator" value = "*">'+
+							'*'+
+						'</button>'+
+						'<button id = "op-" class = "button operator" value = "-">'+
+							'-'+
+						'</button>'+
+						'<button id = "op+" class = "button operator" value = "+">'+
+							'+'+
+						'</button>'+
+						'<button id = "per" class = "button operator"  value = ".">'+
+							'.'+
+						'</button>'+
+						'<button id = "op=" class = "button operator" value = "=">'+
+							'='+
+						'</button>'+
+					'</div>';
+		var buttons = document.getElementsByTagName("button");
+		for (var i = 0; i < buttons.length; i++){
+			buttons[i].addEventListener("click", calculator.listener, false);
+		}
+
+		document.getElementById("numSyst").addEventListener("click", calculator.swapSyst, false);
+
+		calculator.work = document.getElementById("work");
+		document.getElementById("border").style.width = "235px";
+		document.getElementById("border").style.height = "270px";
+
+		document.getElementById("calculator").style.width = "225px";
+		document.getElementById("calculator").style.height = "250px";
+
+		document.getElementById("workspace").style.width = "219px";
+		document.getElementById("workspace").style.height = "75px";
+
+		var buttonClass = document.getElementsByClassName("button");
+
+		for (var i = 0; i < buttonClass.length; i++){
+			buttonClass[i].style.width = "50px";
+			buttonClass[i].style.height = "25px";
+		}
+
+		document.getElementById("num0").style.width = "106px";
+		document.getElementById("num1").style.width = "106px";
+
+		document.getElementById("num0").style.height.value = "25px";
+		document.getElementById("num1").style.height.value = "25px";	}
 	// calculator.decSystem();
 	// LOOPS BETWEEN THE NUMBER SYSTEMS                                 //
 	calculator.swapSyst = function(){
@@ -393,6 +487,9 @@ var calculator = {};
 		{
 			case(0):
 				calculator.decSystem();
+				break;
+			case(1):
+				calculator.binSystem();
 				break;
 			default:
 				calculator.decSystem();
