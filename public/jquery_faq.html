@@ -1,0 +1,139 @@
+<html>
+<head>
+	<title>JQuery FAQ</title>
+	<link rel="stylesheet" type="text/css" href="/css/jquery_faq.css">
+</head>
+<body>
+	<h1>
+		National Park FAQs
+	</h1>
+
+	<dl>
+		<dt>
+			Are national parks dangerous?
+		</dt>
+		<dd>
+			In the words of President Obama, "You Betcha!"
+		</dd>
+
+		<dt>
+			Are national parks really filled with <em>trees</em>?
+		</dt>
+		<dd>
+			Unfortunately, yes, they are. Please don't feed them.
+		</dd>
+
+		<dt>
+			How many different types of bugs are found in national parks?
+		</dt>
+		<dd>
+			Three: Becky, Chad, and Fblthp.
+		</dd>
+
+		<dt>
+			Is anything edible in national parks?
+		</dt>
+		<dd>
+			No. Once something enters a national park, it is no longer edible.
+		</dd>
+	</dl>
+	<a href="#" id = "show-answers">
+		Show All FAQ Answers
+	</a>
+
+	<h2>
+		National Parks:
+	</h2>
+	<h3 id = "fallen-london">
+		Fallen London:
+	</h3>
+	<ul>
+		
+		<li>
+			Full of bats. Just, full of 'em. 
+		</li>
+		<li>
+			And they're always hungry...
+		</li>
+		<li>
+			You can visit the zoo! Or not. You probably shouldn't.
+		</li>
+		<li>
+			Located right on the picturesque zee!
+		</li>
+	</ul>
+
+	<h3>
+		Night Vale:
+	</h3>
+	<ul>
+
+		<li>
+			ALL HAIL THE GLOW CLOUD
+		</li>
+		<li>
+			ALL HAIL THE GLOW CLOUD
+		</li>
+		<li>
+			ALL HAIL THE GLOW CLOUD
+		</li>
+		<li>
+			ALL HAIL THE GLOW CLOUD
+		</li>
+	</ul>
+	<h3>
+		Kakariko Village:
+	</h3>
+	<ul>
+		
+		<li>
+			Located at the foot of the only slightly-active Mt. Doom
+		</li>
+		<li>
+			Learn how to play the ocarina
+		</li>
+		<li>
+			Further a spider-family's blood fued
+		</li>
+		<li>
+			Largest growing real estate market in Hyrule
+		</li>
+	</ul>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript">
+		$("document").ready(function(){
+			console.log("Locked and Loaded");
+			$("dt").click(function(){
+				console.log("Brushy Brushy");
+				var def = $(this).next();
+				event.preventDefault();
+				// $("dd").toggleClass("invisible");
+				def.toggleClass("invisible");
+			});
+
+			$("#show-answers").click(function(){
+				console.log("Brushy Brushy");
+				var def = $(this).next();
+				event.preventDefault();
+				$("dd").toggleClass("invisible");
+			});
+
+			$("ul").each(function(){
+				$(this).children().first().css("font-weight", "bold");
+			});
+
+			$("li").click(function(){	
+				$(this).parent().children().fadeToggle();
+			});
+
+			$("h3").click(function(){	
+				$(this).next().fadeToggle();
+			});
+
+			$("dt").click(function(){	
+				$(this).next().fadeToggle();
+			});
+		});
+	</script>
+</body>
+</html>

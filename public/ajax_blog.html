@@ -1,0 +1,45 @@
+<html>
+<head>
+	<title>Blag</title>
+</head>
+<body>
+	<h1 id = "main-header">
+		Welcome to me Blag!
+	</h1>
+
+	<div id = "posts">
+
+	</div>
+	<button id = "reload">Reload</button>
+	<script type="text/javascript" src = "/js/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		
+		var reload = function(){
+			var json = $.ajax("/data/blog.json");
+			json.done(function(data){
+				console.log("qB^)");
+
+				var htmlAdd = "";
+				console.log("Data: " + data);	
+				data.forEach(function(element, index){
+					htmlAdd += "<div id = 'post'>" +
+									"<h2 id = 'header'>" + element.title + "</h2>"+
+									"<p id = 'date'>" +element.date + "</p>"+
+									"<p id = 'categories'>" + element.categories + "</p>" +
+									"<p id = 'content'>" + element.content + "</p>" +
+								"</div>";
+				});
+				$("#posts").html(htmlAdd);
+			});
+
+
+			json.fail(function(){
+				console.log("JSON failed to load");
+			});
+		}
+		reload();
+		$("#reload").click(reload);
+	</script>
+</body>
+</html>

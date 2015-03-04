@@ -1,0 +1,43 @@
+<html>
+<head>
+	<title>Parse Reddit</title>
+</head>
+<body>
+	<script type="text/javascript" src = "/js/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		var reddit = $.get("/data/reddit_js.txt")
+		reddit.done(function(data){
+			console.log("reddit           loaded");
+			var parsed = "";
+			var reparsed = "";
+			var tabs = 0;
+			var tab = ""
+			for (var i = 0; i < data.length; i++){
+				parsed += data[i];
+				if (data[i] === "{" || data[i] === "}" || data[i] === ";" || (data[i] === ")" && data[i + 1] != "." && data[i + 1] != ",")){
+					parsed += "\n";
+				}
+			}
+			for(var i = 0; i < parsed.length; i++){
+				if (parsed[i] == "{"){
+					tabs++;
+				}
+				else if (parsed[i] == "}"){
+					tabs--;
+				}
+				if (parsed[i - 1] == "\n"){
+					for (var j = 0; j < tabs; j++){
+						reparsed += "    ";
+					}
+				}
+				reparsed += parsed[i];
+			}
+			console.log(reparsed);
+		});
+		reddit.fail(function(){
+			console.log("failed to load");
+		});
+	</script>
+</body>
+</html>

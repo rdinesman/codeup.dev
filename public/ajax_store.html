@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Store</title>
+</head>
+<body>
+
+<h1>My Tool Store</h1>
+
+<table id="products">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Categories</th>
+        </tr>
+    </thead>
+    <tbody id="insertProducts"></tbody>
+</table>
+<button id = "reload">RELOAD</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src = "/js/jquery.js"></script>
+<script>
+var inventory;
+(function() {
+    var load = function(){
+        console.log("load")
+        var result = [];
+        $.get("/data/inventory.json").done(function(data){
+            for (i = 0; i < data.length;i++){
+                result.push(data[i]);
+            }
+            inventory = result;
+            populate();
+        });
+    }
+
+    var populate = function(){
+        for(var i = 0; i < inventory.length; i++){
+            htmlStr += "<tr>" +
+                            "<td>" + inventory[i].title + "</td>" +
+                            "<td>" + inventory[i].quantity + "</td>" +
+                            "<td>$" + inventory[i].price + "</td>" +
+                            "<td>" + inventory[i].categories + "</td>" +
+                        "</tr>";
+        }
+        $("#insertProducts").html(htmlStr);
+    }
+    load();
+    var htmlStr = "";
+    $("#refresh").click(load);
+})();
+</script>
+
+</body>
+</html>
