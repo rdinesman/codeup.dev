@@ -188,6 +188,9 @@
 			if (weather.weather[0].description.indexOf("rain") != -1){
 				return "rain";
 			}
+			else if (weather.weather[0].description.indexOf("cloud") != -1){
+				return "cloudy";
+			}
 		}
 
 	    var loadWeather = function(numDays){
