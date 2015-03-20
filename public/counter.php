@@ -43,5 +43,6 @@
 		<a href="?q=dn&counter=<?php echo $counter - 1?>">
 			Down
 		</a>
+		<script type="text/javascript" src="js/jquery.js"></script>
 	</body>
 </html>

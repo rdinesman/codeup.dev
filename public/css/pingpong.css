@@ -1,0 +1,33 @@
+body{
+	background: black;
+	color: #4ee55d;
+}
+a:visited{
+	color: #4ee55d;
+}
+p{
+	margin: 0;
+}
+
+
+
+#ping{
+	float: left;
+}
+#pong{
+	float: right;
+}
+#info{
+	float: left;
+	font-size: 
+}
+
+
+
+.pingpong{
+	font-size: 180px;
+	margin: 0px;
+}
+.active{
+	color: #e53014;
+}
