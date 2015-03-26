@@ -1,0 +1,25 @@
+19:20:58 Info rubber logged in.
+19:21:09 Info bert logged in.
+19:30:16 Info sdfghjkl failed to logged in.
+19:31:16 Info sdfghjkl failed to logged in.
+19:31:21 Info sdfghjkl failed to logged in.
+19:31:28 Info sdfghjkl failed to logged in.
+19:31:40 Info asdfghjkl; failed to logged in.
+19:32:27 Info rubber failed to logged in.
+19:32:40 Info bert failed to logged in.
+19:35:04 Info bert failed to logged in.
+19:35:36 Info bert failed to logged in.
+19:35:39 Info bert failed to logged in.
+19:35:57 Info guest failed to logged in.
+19:36:58 Info guest failed to logged in.
+19:38:42 Info guest failed to logged in.
+19:40:09 Info guest failed to logged in.
+19:40:39 Info guest failed to logged in.
+19:40:44 Info guest failed to logged in.
+19:40:57 Info guest failed to logged in.
+19:41:01 Info guest failed to logged in.
+19:42:59 Info guest failed to logged in.
+19:43:03 Info guest failed to logged in.
+19:47:08 Info guest logged in.
+19:47:15 Info asdf failed to logged in.
+19:47:19 Info guest logged in.

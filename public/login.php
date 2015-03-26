@@ -1,13 +1,18 @@
 <?php
-	$data = ['failMessage' => ""];
-	if (isset($_POST['username'])){
-		if($_POST['username'] == 'guest' && $_POST['password'] == 'password'){
-			header("Location: authorized.php");
-		}
-		else{
-			$data["failMessage"] = 'Wrong Username or Password.';
-		}
+	require_once '../Auth.php';
+	session_start();
+	$sessionId = session_id();
+
+	if (Auth::check()){
+		header("Location: authorized.php");
+		exit();
 	}
+	$data=[];
+	$data['failMessage'] = '';
+	if (isset($_POST['username'])){
+		Auth::attempt($_POST['username'], $_POST['password']);
+	}
+	$_SESSION['LOGGED_IN'] = false;
 	extract($data)
 ?>
 
@@ -26,7 +31,7 @@
 			<label for = 'password'>
 				Password
 			</label>
-			<input type = 'text' name = 'password' id = 'password'>
+			<input type = 'password' name = 'password' id = 'password'>
 			<button type = 'submit'>Poost</button>
 		</form>
 		<?php echo $failMessage; ?>

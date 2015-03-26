@@ -1,15 +1,17 @@
 <?php
+	require 'functions.php';
+	require_once '../Input.php';
 	function pageController(){
 		$data = array();
-		if (empty($_GET['count'])){
+		if (!Input::has('count')){
 			$count = 0;
 			$action = 'hit';
 		}
-		elseif ($_GET['action'] == 'hit'){
+		elseif (Input::get('action') == 'hit'){
 			$count = $_GET['count'];
 			$action = 'hit';
 		}
-		elseif ($_GET['action'] == 'miss'){
+		elseif (Input::get('action') == 'miss'){
 			$count = 0;
 			$action = 'missed';
 		}
@@ -36,13 +38,13 @@
 		</div>
 
 		<div id = 'info'>
-			<p>Ping <?php echo $action; ?> the ball!</p>
-			<p>The hit count is currently <?php echo $count; ?></p>
+			<p>Ping <?php escape($action); ?> the ball!</p>
+			<p>The hit count is currently <?php escape($count); ?></p>
 			
-			<a href="ping.php?action=hit&count=<?php echo $count + 1;?>">Hit!</a>
+			<a href="ping.php?action=hit&count=<?php escape($count + 1);?>">Hit!</a>
 			<?php
 				if ($count > 0)
-					echo '<a href="pong.php?action=miss&count=<?php echo $count;?>">Miss!</a>'
+					echo'<a href="pong.php?action=miss&count=<?php echo $count;?>">Miss!</a>'
 			?>
 		</div>
 
@@ -52,5 +54,7 @@
 			<p>n</p>
 			<p>g</p>
 		</div>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src='js/pingpong.js'></script>
 	</body>
 </html>

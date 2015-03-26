@@ -1,4 +1,6 @@
 <?php
+	require_once 'functions.php';
+	require_once '../Input.php';
 	function pageController(){
 		$data = array();
 		if (empty($_GET['count'])){
@@ -16,6 +18,7 @@
 
 		$data['count'] = $count;
 		$data['action'] = $action;
+		$data['msg'] = 'hello, javascript!';
 		return $data;
 	}
 	extract(pageController());
@@ -53,5 +56,6 @@
 			<p>g</p>
 		</div>
 		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src='js/pingpong.js'></script>
 	</body>
 </html>
