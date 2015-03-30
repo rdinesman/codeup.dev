@@ -20,8 +20,23 @@
 <html>
 	<head>
 		<title>Log In, Mortal</title>
+		<style type="text/css">
+		id newAcctPopup{
+		}
+		</style>
 	</head>
 	<body>
+		<div id = 'newAcctPopup' hidden>
+			<div id = 'newAcctForm'>
+				<form>
+					<input type = 'text' name = 'newUser' id = 'newUser'>
+					<input type = 'text' name = 'newPass' id = 'newPass'>
+					<input type = 'text' name = 'confPass' id = 'confPass'>
+					<button type = 'submit' id = 'newSubmit' name = 'newSubmit'>Submit</button>
+					<button id = 'cancel' name = 'cancel'>Cancel</button>
+				</form>
+			</div>
+		</div>
 		<form method = 'POST'>
 			<label for = 'username'>
 				Username
@@ -36,4 +51,5 @@
 		</form>
 		<?php echo $failMessage; ?>
 	</body>
+	<button>Create New Account</button>
 </html>
