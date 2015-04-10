@@ -1,0 +1,84 @@
+body{
+	background: url('../img/national_park_background.jpg');
+	background-size: 100%;
+}
+
+label{
+	font-size: 20px;
+}
+
+input, textarea{
+	font-size: 15px;
+	width: 200px;
+	margin-left: 15px;
+	margin-bottom: 10px;
+}
+
+td.name{
+	width: 200px;
+}
+
+td.location{
+	width: 120px;
+}
+
+td.date_established{
+	width: 120px;
+}
+
+td.area_in_acres{
+	width: 100px;
+}
+a.current{
+	font-style: oblique;
+	color: #368C58;
+}
+
+#newParkForm{
+	border: solid gray 1px;
+	background: rgba(200,200,200,.8);
+	border-radius: 5px;
+	padding: 10px;
+	width: 300px;
+	margin-left: 39%;
+}
+
+#newParkModal{
+	background: rgba(1,1,1,.7);
+	z-index: 10;
+	width: 100%;
+	height: 610px;
+	padding-top: 150px;
+}
+
+#parks{
+	border: solid gray 1px;
+	background: rgba(200,200,200,.8);
+	border-radius: 5px;
+	padding: 10px;
+	width: 600px;
+	margin: auto;
+	z-index: -1;
+}
+
+#descInput{
+	width: 250px;
+	height: 70px;
+}
+
+#dateInput{
+	margin-bottom: 10px;
+}
+
+#yearInput{
+	margin-left: 15px;
+}
+
+#newParkSubmit{
+	margin-left: 15px;
+}
+
+#paginator{
+	margin-left: auto;
+	margin-right: auto;
+}
