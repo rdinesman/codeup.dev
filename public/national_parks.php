@@ -76,7 +76,7 @@
 	}
 
 	// Here we pull the results that will be displayed. The offset is calculated by subtracting one,
-	// and then multiplying that result by the limit (line 83). The -1 is because we are actually 
+	// and then multiplying that result by the limit (line 84). The -1 is because we are actually 
 	// starting on the 0th page, with no offset. The * $limit is because each page offsets by the 
 	// limit.
 	$stmt = $dbc->prepare(("SELECT * FROM national_parks LIMIT :lim OFFSET :offset"));
@@ -85,7 +85,13 @@
 	$stmt->execute();
 	$parks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	
-	extract([$parks]);
+	// This is an array of all displayed parks' pictures
+	$pictures = [];
+	for ($i = 0; $i < sizeof($parks); $i++){
+		$pictures[$i] = "/img/national_parks/" . $parks[$i]["pic"];
+	}
+
+	extract([$parks, $pictures]);
  ?>
 <!DOCTYPE html>
  <html>
@@ -94,66 +100,75 @@
 	 	<link rel="stylesheet" type="text/css" href="css/national_parks.css">
 	 </head>
 	 <body>
-	 	<!-- We set the current page and limit as attributes here so we can reference them 
-	 		 easily in JQuery -->
-	 	<div id="parks" page=<?= $page?> limit=<?= $limit?>>
-		 	<h1>U.S. National Parks</h1>
-		 	<table id = "parksTable">
-		 		<!-- Table column headers -->
-		 		<tr>
-		 			<td class="name">Name</td>
-		 			<td class="location">Location</td>
-		 			<td class="date_established">Date Established</td>
-		 			<td class="area_in_acres">Area in Acres</td>
-		 		</tr>
+	 	<? if(sizeof($parks) > 1):?>
+	 		<button id="prevPic" class="arrowButton"><</button>
+		<? endif?>
 
-		 		<!-- For each park returned to be displayed, add a table row with the appropriate data -->
-		 		<? foreach ($parks as $park){ ?>
-		 		<tr>
- 					<td class="name"><?= $park['name']; ?></td>
- 					<td class="location"><?= $park['location']; ?></td>
- 					<td class="date_established"><?= $park['date_established']; ?></td>
- 					<td class="area_in_acres"><?= $park['area_in_acres']; ?></td>
-		 		</tr>
-		 		<? } ?>
-		 	</table>
-		
-			<!-- Dispalys the pagination. If it is the first page, previous page doens't appear, and if it
-			is the last page, next page doesn't appear. -->
-		 	<div id="paginator">
-			 	<? if ($page != 1): ?>
-			 	<a href="national_parks.php?page=<?= $page - 1?>&amp;limit=<?= $limit ?>">Previous Page</a>
-			 	<? endif; ?>
+	 	<div id="container">
+		 	<!-- We set the current page and limit as attributes here so we can reference them 
+		 		 easily in JQuery -->
+		 	<div id="parks" page=<?= $page?> limit=<?= $limit?>>
+			 	<h1>U.S. National Parks</h1>
+			 	<table id = "parksTable">
+			 		<!-- Table column headers -->
+			 		<tr>
+			 			<td class="name">Name</td>
+			 			<td class="location">Location</td>
+			 			<td class="date_established">Date Established</td>
+			 			<td class="area_in_acres">Area in Acres</td>
+			 		</tr>
 
-				<? for ($i = 1; $i <= $maxPage; $i++){ ?>
-			 		<a href="national_parks.php?page=<?=$i?>&amp;limit=<?=$limit?>" <? if ($i == $page) echo 'class = "current"' ?> id = <?='page'.$i?>><?=$i ?></a>
-			 	<? } ?>
+			 		<!-- For each park returned to be displayed, add a table row with the appropriate data -->
+			 		<? foreach ($parks as $park){ ?>
+			 		<tr>
+	 					<td class="name"><?= $park['name']; ?></td>
+	 					<td class="location"><?= $park['location']; ?></td>
+	 					<td class="date_established"><?= $park['date_established']; ?></td>
+	 					<td class="area_in_acres"><?= $park['area_in_acres']; ?></td>
+			 		</tr>
+			 		<? } ?>
+			 	</table>
+			
+				<!-- Dispalys the pagination. If it is the first page, previous page doens't appear, and if it
+				is the last page, next page doesn't appear. -->
+			 	<div id="paginator">
+				 	<? if ($page != 1): ?>
+				 	<a href="national_parks.php?page=<?= $page - 1?>&amp;limit=<?= $limit ?>">Previous Page</a>
+				 	<? endif; ?>
 
-			 	<? if ($page != $maxPage): ?>
-			 	<a href="national_parks.php?page=<?= $page + 1?>&amp;limit=<?= $limit ?>">Next Page</a>
-			 	<? endif; ?>
+					<? for ($i = 1; $i <= $maxPage; $i++){ ?>
+				 		<a href="national_parks.php?page=<?=$i?>&amp;limit=<?=$limit?>" <? if ($i == $page) echo 'class = "current"' ?> id = <?='page'.$i?>><?=$i ?></a>
+				 	<? } ?>
+
+				 	<? if ($page != $maxPage): ?>
+				 	<a href="national_parks.php?page=<?= $page + 1?>&amp;limit=<?= $limit ?>">Next Page</a>
+				 	<? endif; ?>
+				</div>
+
+				<!-- Allows for the selection of how many parks are displayed. Ranges from 1 to 10 results. -->
+				<select id="limitSelector">
+					<option disabled selected># of Displayed Parks</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
 			</div>
+			<!-- End of the parks table -->
 
-			<!-- Allows for the selection of how many parks are displayed. Ranges from 1 to 10 results. -->
-			<select id="limitSelector">
-				<option disabled selected># of Displayed Parks</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-			</select>
+			<!-- This button bring up the New Park Modal -->
+			<button id="newParkButton">Add New Park</button>
 		</div>
-		<!-- End of the parks table -->
-
-		<!-- This button bring up the New Park Modal -->
-		<button id="newParkButton">Add New Park</button>
 		
+		<? if(sizeof($parks) > 1):?>
+	 		<button id="nextPic" class="arrowButton">></button>
+		<? endif?>
 		<!-- This modal holds the form to submit a new park to the DB -->
 		<div id="newParkModal" hidden>
 			<div id="newParkForm">
@@ -161,8 +176,6 @@
 				area is a number input. Everything else is text/textarea. This eliminates the 
 				need to check for proper types. -->
 
-<!-- TODO: check for negative values for areas -->
-<!-- TODO: check for leap years/even months that have 32/31 days -->
 				<form method="POST">
 					<h1>Submit New Park</h1>
 						<div>
@@ -223,7 +236,7 @@
 							<div>
 								<label for="sizeInput">Park Size in Acres:</label>
 							</div>
-							<input type="number" placeholder="13.37" name="sizeInput" id="sizeInput" required>
+							<input type="number" min='0' placeholder="13.37" name="sizeInput" id="sizeInput" required>
 						</div>
 
 						<div>
@@ -242,8 +255,9 @@
 
 						<!-- Buttons to submit or exit the form. -->
 						<button type="submit" id="newParkSubmit">Submit</button>
-						<button id="parkSubmitCancel">Cancel</button>
+						
 				</form>
+				<button id="parkSubmitCancel">Cancel</button>
 			</div>
 		</div>
 		<!-- End of the modal's code -->
@@ -254,7 +268,8 @@
 
 			// If a new park result limit is selected, reload on the current page with the new limit.
 			$("#limitSelector").change(function(event){
-				location = "/national_parks.php?page="+($("#parks").attr("page"))+"&limit="+this.value;
+				var limit = this.value;
+				location = "/national_parks.php?page="+($("#parks").attr("page"))+"&limit="+limit;
 			});
 
 			// If the 'Add New Park' or 'Cancel' buttons are clicked, slide toggle the parks and the modal.
@@ -269,6 +284,65 @@
 				$("#newParkModal").slideToggle();
 				$("#newParkButton").slideToggle();
 			});
+
+			// When a  year or month is selected, set the HTML Selector's value to the appropriate value
+			$("#yearInput").change(function(event){
+				$("#yearInput").attr("value", this.value);
+				changeDays();
+			});
+			$("#monthInput").change(function(event){
+				$("#monthInput").attr("value", this.value);
+				changeDays();
+			});
+
+			// changeDays checks if a month and year have been selected. If they both have, calculate and
+			// display the appropriate number of selectable days. 
+			function changeDays(){
+				var year = Number($("#yearInput").attr("value"));
+				var month = $("#monthInput").attr("value");
+
+				if (year != null && month != null){
+					switch(month){
+						// if the selected month if February, calculate if it is a leap year and update the days accordingly
+						case("02"):
+							if(year % 4 != 0 && year % 400 != 0){
+								$("#dayInput").html("<option disabled label value=''>Day</option>\n"+
+											"<!-- For each day in the month, add an option in the selector. -->\n"+
+											"<? for($day = 1; $day <= 28; $day++):?>\n"+
+												"<option value=<? if($day >= 10){echo $day.'';} else {echo '0'.$day;}?>><?= $day?></option>\n"+
+											"<? endfor;?>");
+							}
+							else{
+								$("#dayInput").html("<option disabled label value=''>Day</option>\n"+
+											"<!-- For each day in the month, add an option in the selector. -->\n"+
+											"<? for($day = 1; $day <= 29; $day++):?>\n"+
+												"<option value=<? if($day >= 10){echo $day.'';} else {echo '0'.$day;}?>><?= $day?></option>\n"+
+											"<? endfor;?>");
+							}
+							break;
+						// If the selected month has only 30 days, limit the options to 30 days.
+						case("04"):
+						case("06"):
+						case("09"):
+							$("#dayInput").html("<option disabled label value=''>Day</option>\n"+
+										"<!-- For each day in the month, add an option in the selector. -->\n"+
+										"<? for($day = 1; $day <= 30; $day++):?>\n"+
+											"<option value=<? if($day >= 10){echo $day.'';} else {echo '0'.$day;}?>><?= $day?></option>\n"+
+										"<? endfor;?>");
+							break;
+						// Else, the month has 31 days.
+						default:
+							$("#dayInput").html("<option disabled label value=''>Day</option>\n"+
+										"<!-- For each day in the month, add an option in the selector. -->\n"+
+										"<? for($day = 1; $day <= 31; $day++):?>\n"+
+											"<option value=<? if($day >= 10){echo $day.'';} else {echo '0'.$day;}?>><?= $day?></option>\n"+
+										"<? endfor;?>");
+							break;
+					}
+				}
+			}
+
+
 		</script>
 	 </body>	
  </html>

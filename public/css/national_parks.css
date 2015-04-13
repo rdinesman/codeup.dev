@@ -56,7 +56,7 @@ a.current{
 	background: rgba(200,200,200,.8);
 	border-radius: 5px;
 	padding: 10px;
-	width: 600px;
+	width: 540px;
 	margin: auto;
 	z-index: -1;
 }
@@ -81,4 +81,37 @@ a.current{
 #paginator{
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#parkSubmitCancel{
+	position: relative;
+	left: 75px;
+	bottom: 18px;
+}
+
+#container{
+	width: 540px;
+	margin:auto;
+	margin-top: 17%;
+}
+
+#prevPic{
+	float: left;
+}
+
+#nextPic{
+	float: right;
+	position: relative;
+	bottom: 280px;
+}
+
+.arrowButton{
+	background-color: rgba(0,0,0,0);
+	border: none;
+	font-size: 60px;
+	color: rgba(256,256,256,.6);
+}
+
+.arrowButton:hover{
+	color: white;
 }

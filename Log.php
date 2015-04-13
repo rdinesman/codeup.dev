@@ -1,6 +1,6 @@
 <?php 
 class Log{
-	public $fileName;
+	protected public $fileName;
 	public static function logMessage($logLevel, $message){
 		$fileName = 'data/log-' . date('Y') . '.txt';
 		$handle = fopen($fileName, 'a');
