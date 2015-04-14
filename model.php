@@ -2,7 +2,7 @@
 	class Model {
 
     protected static $dbc;
-    protected static $table = 'national_parks_db';
+    protected static $table = 'national_parks';
 
     public $attributes = array();
 
@@ -22,11 +22,13 @@
         if (!self::$dbc)
         {
     		define("DB_HOST", '127.0.0.1');
-			define("DB_NAME", self::$table);
+			define("DB_NAME", 'national_parks_db');
 			define("DB_USER", 'np_user');
 			define("DB_PASS", 'password');
 
             self::$dbc = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS);
+
+            self::$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             echo self::$dbc->getAttribute(PDO::ATTR_CONNECTION_STATUS) . "\n";
         }
@@ -69,6 +71,39 @@
         // @TODO: You will need to iterate through all the attributes to build the prepared query
 
         // @TODO: Use prepared statements to ensure data security
+        if (!empty($this->attributes)){
+        	self::dbConnect();
+        	$stmt = self::$dbc->prepare("SELECT * FROM " . self::$table . " WHERE id = :id");
+        	
+        	$stmt->bindValue(":id",    $this->attributes["id"], PDO::PARAM_STR);
+
+        	$stmt->execute();
+
+        	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        	if ($results){
+        		foreach ($this->attributes as $key => $value) {
+	        		$stmt = self::$dbc->prepare("UPDATE " . self::$table . " SET $key = :$key WHERE id = :id");
+
+					$stmt->bindValue(":id",      $this->attributes["id"], PDO::PARAM_INT);
+					$stmt->bindValue(":$key",    $value,                  PDO::PARAM_STR);
+
+					$stmt->execute();
+				}
+        	}
+        	else{
+        		$cols = implode(", ", array_keys($this->attributes));
+	        	$vals = ":" . implode(", :", array_keys($this->attributes));
+        		$query = "INSERT INTO " . self::$table . " ($cols) VALUES ($vals)";
+        		$stmt = self::$dbc->prepare($query);
+
+        		foreach($this->attributes as $key => $val){
+	        		$stmt->bindValue(":$key", $val, PDO::PARAM_STR);
+	        	}
+
+        		$stmt->execute();
+        	}
+        }
     }
 
     /*
@@ -84,6 +119,11 @@
         // @TODO: Store the resultset in a variable named $result
 
         // The following code will set the attributes on the calling object based on the result variable's contents
+        $stmt = self::$dbc->prepare("SELECT * FROM " . self::$table . " WHERE id = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $instance = null;
         if ($result)
@@ -102,10 +142,11 @@
         self::dbConnect();
 
         // @TODO: Learning from the previous method, return all the matching records
-    }
+        $stmt = self::$dbc->prepare("SELECT * FROM " . self::$table);
+        $stmt->execute();
 
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
-	$test = new Model;
-	$test->dbConnect();
  ?>
